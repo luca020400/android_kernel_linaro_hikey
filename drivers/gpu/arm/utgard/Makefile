@@ -18,10 +18,9 @@ MALI_PMU_PARALLEL_POWER_UP ?= 0
 USING_DT ?= 0
 MALI_MEM_SWAP_TRACKING ?= 0
 
-# The Makefile sets up "arch" based on the CONFIG, creates the version info
-# string and the __malidrv_build_info.c file, and then call the Linux build
-# system to actually build the driver. After that point the Kbuild file takes
-# over.
+# The Makefile sets up "arch" based on the CONFIG and creates the version info
+# string, and then call the Linux build system to actually build the driver.
+# After that point the Kbuild file takes over.
 
 # set up defaults if not defined by the user
 ARCH ?= arm
@@ -179,7 +178,6 @@ endif
 
 all: $(UMP_SYMVERS_FILE)
 	$(MAKE) ARCH=$(ARCH) -C $(KDIR) M=$(CURDIR) modules
-	@rm $(FILES_PREFIX)__malidrv_build_info.c $(FILES_PREFIX)__malidrv_build_info.o
 
 clean:
 	$(MAKE) ARCH=$(ARCH) -C $(KDIR) M=$(CURDIR) clean

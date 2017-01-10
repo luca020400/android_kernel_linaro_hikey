@@ -63,9 +63,6 @@ EXPORT_TRACEPOINT_SYMBOL_GPL(mali_hw_counter);
 EXPORT_TRACEPOINT_SYMBOL_GPL(mali_sw_counters);
 #endif /* CONFIG_TRACEPOINTS */
 
-/* from the __malidrv_build_info.c file that is generated during build */
-extern const char *__malidrv_build_info(void);
-
 /* Module parameter to control log level */
 int mali_debug_level = 2;
 module_param(mali_debug_level, int, S_IRUSR | S_IWUSR | S_IWGRP | S_IRGRP | S_IROTH); /* rw-rw-r-- */

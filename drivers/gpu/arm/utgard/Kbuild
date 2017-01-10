@@ -103,8 +103,7 @@ mali-y += \
 	common/mali_spinlock_reentrant.o \
 	common/mali_pm_domain.o \
 	linux/mali_osk_pm.o \
-	linux/mali_pmu_power_up_down.o \
-	__malidrv_build_info.o
+	linux/mali_pmu_power_up_down.o
 
 EXTRA_DEFINES += -DMALI_FAKE_PLATFORM_DEVICE=1
 mali-y += platform/hikey/mali_hikey.o
@@ -178,30 +177,3 @@ endif
 endif
 
 ccflags-y += -DSVN_REV_STRING=\"$(DRIVER_REV)\"
-
-VERSION_STRINGS :=
-VERSION_STRINGS += API_VERSION=$(shell cd $(src); grep "\#define _MALI_API_VERSION" $(FILES_PREFIX)include/linux/mali/mali_utgard_uk_types.h | cut -d' ' -f 3 )
-VERSION_STRINGS += REPO_URL=$(REPO_URL)
-VERSION_STRINGS += REVISION=$(DRIVER_REV)
-VERSION_STRINGS += CHANGED_REVISION=$(CHANGED_REVISION)
-VERSION_STRINGS += CHANGE_DATE=$(CHANGE_DATE)
-VERSION_STRINGS += BUILD_DATE=$(shell date)
-ifdef CONFIG_MALI400_DEBUG
-VERSION_STRINGS += BUILD=debug
-else
-VERSION_STRINGS += BUILD=release
-endif
-VERSION_STRINGS += TARGET_PLATFORM=$(TARGET_PLATFORM)
-VERSION_STRINGS += MALI_PLATFORM=$(MALI_PLATFORM)
-VERSION_STRINGS += KDIR=$(KDIR)
-VERSION_STRINGS += OS_MEMORY_KERNEL_BUFFER_SIZE_IN_MB=$(OS_MEMORY_KERNEL_BUFFER_SIZE_IN_MB)
-VERSION_STRINGS += USING_UMP=$(CONFIG_MALI400_UMP)
-VERSION_STRINGS += USING_PROFILING=$(CONFIG_MALI400_PROFILING)
-VERSION_STRINGS += USING_INTERNAL_PROFILING=$(CONFIG_MALI400_INTERNAL_PROFILING)
-VERSION_STRINGS += USING_GPU_UTILIZATION=$(USING_GPU_UTILIZATION)
-VERSION_STRINGS += USING_DVFS=$(CONFIG_MALI_DVFS)
-VERSION_STRINGS += MALI_UPPER_HALF_SCHEDULING=$(MALI_UPPER_HALF_SCHEDULING)
-
-# Create file with Mali driver configuration
-$(src)/__malidrv_build_info.c:
-	@echo 'const char *__malidrv_build_info(void) { return "malidrv: $(VERSION_STRINGS)";}' > $(src)/__malidrv_build_info.c
